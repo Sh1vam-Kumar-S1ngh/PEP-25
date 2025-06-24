@@ -1,0 +1,36 @@
+file_path = "C:\\Users\\shiva\\Desktop\\file.txt"
+
+def check_operation(op):
+    if op == "read":
+        return True
+    else:
+        return False
+
+def make_response(code, msg, data=""):
+    result = {
+        "status": code,
+        "message": msg
+    }
+    if data:
+        result["data"] = data
+    return result
+
+op = input("Enter operation: ").strip().lower()
+
+if check_operation(op) == False:
+    res = make_response(400, "Invalid operation")
+else:
+    try:
+        with open(file_path, 'r') as f:
+            text = f.read()
+        res = make_response(200, "Success", text)
+    except FileNotFoundError:
+        res = make_response(404, "File not found")
+    except PermissionError:
+        res = make_response(403, "Permission denied")
+    except Exception as e:
+        res = make_response(500, "Error: " + str(e))
+
+print("\n--- Response ---")
+for k, v in res.items():
+    print(k + ":", v)
