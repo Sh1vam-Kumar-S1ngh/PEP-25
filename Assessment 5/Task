@@ -1,0 +1,72 @@
+Build a command-line Habit Tracker that allows users to define daily habits, mark them as done,
+review streaks, and persist all data between runs. This project will integrate Python fundamentals, data
+structures, OOP, file I/O, and exception handling.
+Requirements
+1. Core Classes
+Habit • Attributes:
+– name (str)
+– description (str)
+– history (list of date strings, private)
+• Methods:
+– mark done(self, date:str) -> None
+– streak(self) -> int (use list comprehensions to compute consecutive days)
+– str (self) -> str (user-friendly)
+– repr (self) -> str (unambiguous)
+HabitTracker • Class Variable:
+– DATE FORMAT = "%Y-%m-%d"
+• Instance Attributes:
+– habits (dict mapping name to Habit)
+• Methods:
+– add habit(self, name:str, desc:str) -> None
+– remove habit(self, name:str) -> None
+– mark done(self, name:str, date:str = today) -> None
+– list habits(self) -> list[Habit]
+– report(self) -> dict[str,int] (use dict comprehension to map each habit to its streak)
+– add (self, other:HabitTracker) -> HabitTracker (merge two trackers)
+2. Persistence (File I/O & Exceptions)
+• HabitTracker.save(self, filename:str) -> None
+– Serialize habits to JSON using json.dump.
+– On any OSError, raise PersistenceError.
+• HabitTracker.load(self, filename:str) -> None
+– Load JSON via json.load.
+– On FileNotFoundError: initialize empty tracker.
+– On json.JSONDecodeError: raise PersistenceError, keep existing data.
+Custom Exception:
+class PersistenceError(Exception):
+"""Raised when saving/loading habits fails."""
+pass
+1
+3. Command-Line Interface (CLI)
+1. Display menu:
+1. Add new habit
+2. Remove habit
+3. Mark habit done
+4. List all habits
+5. Show streak report
+6. Save & Exit
+2. Validate menu input (ValueError on non-int or out of range).
+3. For date inputs, validate using datetime.strptime (catch ValueError).
+4. On exit, call save(); catch PersistenceError and warn user.
+4. Context Managers & Utilities
+• Use with open(...) for all file I/O.
+• (Optional) Implement a timing context manager:
+from contextlib import contextmanager
+@contextmanager
+def timer(label):
+import time
+start = time.time()
+try:
+yield
+finally:
+print(f"{label}: {time.time()-start:.2f}s")
+5. Bonus Features
+• Operator Overloading:
+Implement add in HabitTracker to merge two trackers.
+• Duck Typing Utility:
+Write def summarize(obj): that prints obj.name and obj.streak() for any object with those
+attributes.
+Deliverables
+1. habits.py — contains Habit, HabitTracker, PersistenceError.
+2. cli.py — interactive menu loop (load on start, save on exit).
+3. habits.json — sample file with at least 3 habits pre-populated.
+4. README.md — instructions to run, mapping of Day 1–5 concepts, any design notes
