@@ -1,0 +1,31 @@
+# 📧 Simple Python Mailer
+
+A basic Python script to send emails using Gmail.
+
+---
+
+## 🛠 Requirements
+
+- Python installed
+- Gmail account
+- App Password (not your normal password)
+
+---
+
+## 🔐 How to Get App Password (Gmail)
+
+1. Go to [myaccount.google.com](https://myaccount.google.com/)
+2. Turn on **2-Step Verification**
+3. Go to **Security > App Passwords**
+4. Generate an app password
+5. Copy the 16-character password
+
+---
+
+## ▶️ How to Use
+
+1. Open terminal
+2. Run the script:
+
+```bash
+python mailer.py
