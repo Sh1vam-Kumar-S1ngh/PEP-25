@@ -1,0 +1,18 @@
+import smtplib
+
+sender = input("Enter your email: ")
+password = input("Enter your password: ")  
+receiver = input("Enter recipient's email: ")
+
+subject = input("Enter subject: ")
+body = input("Enter message body: ")
+
+message = f"Subject: {subject}\n\n{body}"
+
+server = smtplib.SMTP("smtp.gmail.com", 587) #connect to stmp
+server.starttls()
+server.login(sender, password)
+server.sendmail(sender, receiver, message)
+server.quit()
+
+print("Email sent!")
